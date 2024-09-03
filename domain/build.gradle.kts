@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 21
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -40,4 +40,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    val paging_version = "3.3.2"
+
+    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
+    implementation ("com.google.code.gson:gson:2.11.0")
+
+    implementation(libs.retrofit)
 }
