@@ -35,6 +35,7 @@ class MoviesActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     private fun setUpMoviesRecyclerView() {

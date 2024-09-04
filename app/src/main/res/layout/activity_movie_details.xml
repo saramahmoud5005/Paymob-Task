@@ -25,15 +25,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_movie">
 
-        <TextView
-            android:id="@+id/movie_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Movie Name"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginBottom="10dp"
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/movie_name"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                tools:text="Movie Name"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/favourite_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
+                android:background="@color/white"
+                android:layout_weight="0"
+                android:src="@drawable/ic_favorite_border"
+                android:contentDescription="@string/state_of_favorite_movie">
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

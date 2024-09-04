@@ -4,17 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domain.models.MoviesResponse
+import com.example.moviesapp.R
 import com.example.moviesapp.databinding.MovieItemBinding
 import com.example.moviesapp.presentation.MovieDetailsActivity
 
 class MoviesAdapter(
-    private val context: Context
+    private val context: Context,
 ): PagingDataAdapter<MoviesResponse.Movie, MoviesAdapter.ViewHolder>(diffUtil) {
+
+    val sharedPreferences = context.getSharedPreferences("movies_sp", Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
 
     class ViewHolder(val binding:MovieItemBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -48,6 +53,15 @@ class MoviesAdapter(
             }
             context.startActivity(intent)
         }
+
+        holder.binding.favMovie.setOnClickListener{
+            if (movie != null) {
+                val isFavMovie = sharedPreferences.getBoolean("${movie.id}",false)
+                editor.putBoolean("${movie.id}", !isFavMovie)
+                editor.apply()
+            }
+        }
+
     }
 
     companion object{

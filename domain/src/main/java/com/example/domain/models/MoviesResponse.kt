@@ -36,5 +36,7 @@ data class MoviesResponse(
         val voteAverage: Double,
         @SerializedName("vote_count")
         val voteCount: Long,
+        @Transient
+        var isFavourite:Boolean = false
     )
 }

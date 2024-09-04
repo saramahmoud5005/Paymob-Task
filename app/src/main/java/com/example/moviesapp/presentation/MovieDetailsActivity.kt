@@ -1,11 +1,13 @@
 package com.example.moviesapp.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.moviesapp.R
 import com.example.moviesapp.databinding.ActivityMovieDetailsBinding
 import com.example.moviesapp.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +30,9 @@ class MovieDetailsActivity :AppCompatActivity() {
             viewModel.loadDetailsMovie(movieId)
         }
 
+        val sharedPreferences = this.getSharedPreferences("movies_sp", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
         viewModel.detailsMovie.observe(this){
             movieDetails ->
             Glide.with(this)
@@ -39,6 +44,19 @@ class MovieDetailsActivity :AppCompatActivity() {
             binding.movieOverview.text = movieDetails.overview
             binding.movieReleaseDate.text = movieDetails.releaseDate
             binding.movieRating.text = movieDetails.voteAverage.toString()
+
+            val isFavMovie = sharedPreferences.getBoolean("${movieDetails.id}",false)
+            if(isFavMovie){
+                binding.favouriteBtn.setImageResource(R.drawable.ic_favorite_filled)
+            }else{
+                binding.favouriteBtn.setImageResource(R.drawable.ic_favorite_border)
+            }
+
+            binding.favouriteBtn.setOnClickListener{
+                val isFavMovie = sharedPreferences.getBoolean("${movieDetails.id}",false)
+                editor.putBoolean("${movieDetails.id}", !isFavMovie)
+                editor.apply()
+            }
         }
 
     }

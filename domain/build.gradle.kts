@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -47,5 +48,14 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
     implementation ("com.google.code.gson:gson:2.11.0")
 
+    val room_version = "2.6.1"
+
+    implementation ("androidx.room:room-runtime:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
     implementation(libs.retrofit)
+}
+
+kapt {
+    correctErrorTypes = true
 }

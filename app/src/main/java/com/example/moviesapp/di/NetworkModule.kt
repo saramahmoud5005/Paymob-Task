@@ -1,5 +1,9 @@
 package com.example.moviesapp.di
 
+import android.content.Context
+import androidx.room.Room
+import com.example.data.datasource.local.MoviesDao
+import com.example.data.datasource.local.MoviesDatabase
 import com.example.data.datasource.remote.MoviesApiService
 import com.example.data.datasource.remote.MoviesPagingSource
 import com.example.domain.repositories.MoviesRepository
@@ -7,6 +11,7 @@ import com.example.moviesapp.TOKEN
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -59,4 +64,18 @@ object NetworkModule {
     fun providePagingSource(moviesRepository: MoviesRepository): MoviesPagingSource {
         return MoviesPagingSource(moviesRepository)
     }
+
+    @Provides
+    @Singleton
+    fun provideMoviesDatabase(@ApplicationContext context: Context): MoviesDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            MoviesDatabase::class.java,
+            name = "movies_db",
+        ).fallbackToDestructiveMigration().build()
+    }
+
+    @Provides
+    fun provideMoviesDao(moviesDatabase: MoviesDatabase): MoviesDao = moviesDatabase.moviesDao
+
 }
