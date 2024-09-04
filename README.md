@@ -20,3 +20,7 @@
 * Paging
 * MVVM
 * Coroutines
+* Room
+* Shared Preference
+
+## Screenshots
