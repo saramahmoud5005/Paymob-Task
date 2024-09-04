@@ -1,5 +1,7 @@
 package com.example.moviesapp.viewmodels
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,41 +10,34 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.data.datasource.remote.MoviesPagingSource
 import com.example.domain.models.MovieDetailsResponse
-//import com.example.data.usecases.GetMoviesUseCase
 import com.example.domain.repositories.MoviesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository
-):ViewModel() {
-
-    init {
-        loadDetailsMovie(3)
-    }
+) : ViewModel() {
 
     val movies = Pager(
-            config = PagingConfig(1),
-            pagingSourceFactory = { MoviesPagingSource(moviesRepository) }
+        config = PagingConfig(1),
+        pagingSourceFactory = { MoviesPagingSource(moviesRepository) }
     ).flow.cachedIn(viewModelScope)
 
-    val detailsMovie : MutableStateFlow<MovieDetailsResponse>? = null
+    var detailsMovie: MutableLiveData<MovieDetailsResponse> = MutableLiveData()
 
-    private fun loadDetailsMovie(id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        val response = moviesRepository.getMovieDetails(id)
-        if(response.isSuccessful){
-            detailsMovie?.value = response.body()!!
+    fun loadDetailsMovie(id: Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = moviesRepository.getMovieDetails(id)
+            Log.d("TAG1000", "loadDetailsMovie: "+response)
+            withContext(Dispatchers.Main){detailsMovie.value = response.body()}
+            Log.d("TAG1000", "loadDetailsMovie: "+response.body())
+            Log.d("TAG1000", "loadDetailsMovie: "+detailsMovie)
         }
-
     }
 
 }

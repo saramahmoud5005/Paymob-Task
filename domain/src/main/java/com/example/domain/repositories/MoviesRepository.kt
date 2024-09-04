@@ -9,5 +9,5 @@ import retrofit2.Response
 
 interface MoviesRepository {
     suspend fun getPopularMovies(page:Int) : MoviesResponse
-    suspend fun getMovieDetails(id: Int) : Response<MovieDetailsResponse>
+    suspend fun getMovieDetails(id: Long) : Response<MovieDetailsResponse>
 }

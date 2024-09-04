@@ -43,8 +43,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Vote Average"
-                tools:textColor="@color/gray"
+                android:text="Vote Average"
+                android:textColor="@color/gray"
                 android:textSize="16sp"
                 />
             <TextView
@@ -66,8 +66,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Release Date"
-                tools:textColor="@color/gray"
+                android:text="Release Date"
+                android:textColor="@color/gray"
                 android:textSize="16sp"
                 />
             <TextView
@@ -89,8 +89,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Language"
-                tools:textColor="@color/gray"
+                android:text="Language"
+                android:textColor="@color/gray"
                 android:textSize="16sp"
                 />
             <TextView
@@ -106,7 +106,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            tools:text="OverView"
+            android:text="OverView"
+            android:textColor="@color/gray"
             android:textSize="18sp"
             />
 

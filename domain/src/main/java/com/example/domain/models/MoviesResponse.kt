@@ -1,8 +1,9 @@
 package com.example.domain.models
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class MoviesResponse(
     val page: Long,
     val results: List<Movie>,
@@ -11,6 +12,7 @@ data class MoviesResponse(
     @SerializedName("total_results")
     val totalResults: Long,
 ){
+    @Serializable
     data class Movie(
         val adult: Boolean,
         @SerializedName("backdrop_path")
