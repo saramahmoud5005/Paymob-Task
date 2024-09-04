@@ -61,6 +61,14 @@ class MoviesAdapter(
                 editor.apply()
             }
         }
+        if(movie!=null){
+            val isFavMovie = sharedPreferences.getBoolean("${movie.id}",false)
+            if(isFavMovie){
+                holder.binding.favMovie.setImageResource(R.drawable.ic_favorite_filled)
+            }else{
+                holder.binding.favMovie.setImageResource(R.drawable.ic_favorite_border)
+            }
+        }
 
     }
 
