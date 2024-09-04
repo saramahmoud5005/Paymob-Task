@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Movies App</string>
+    <string name="image_of_movie">image of movie</string>
+    <string name="state_of_favorite_movie">state of favorite movie</string>
+    <string name="movie_image">Movie Image</string>
+</resources>
